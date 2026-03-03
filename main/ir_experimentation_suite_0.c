@@ -51,7 +51,8 @@ int ies0_run(ies_resources_t* pResources) {
   rmt_rx_channel_config_t rx_chan_config = {
     .clk_src = RMT_CLK_SRC_DEFAULT,   // select source clock
     .resolution_hz = 1 * 1000 * 1000, // 1 MHz tick resolution, i.e., 1 tick = 1 µs
-    .mem_block_symbols = 64,          // memory block size, 64 * 4 = 256 Bytes
+    //.mem_block_symbols = 64,          // memory block size, 64 * 4 = 256 Bytes
+    .mem_block_symbols = 256,
     .gpio_num = 27,                    // GPIO number
     .flags.invert_in = false,         // do not invert input signal
     .flags.with_dma = false,          // do not need DMA backend
@@ -76,7 +77,7 @@ int ies0_run(ies_resources_t* pResources) {
   //ESP_ERROR_CHECK(rmt_enable(tx_chan));
   ESP_ERROR_CHECK(rmt_enable(rx_chan));
 
-  rmt_symbol_word_t raw_symbols[64];
+  rmt_symbol_word_t raw_symbols[256];
   rmt_rx_done_event_data_t rx_data;
 
   ESP_ERROR_CHECK(rmt_receive(rx_chan, raw_symbols, sizeof(raw_symbols), &receive_config));
