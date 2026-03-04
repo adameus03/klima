@@ -1,5 +1,4 @@
 #include "ir_experimentation_suite_0.h"
-#include "driver/rmt_tx.h"
 #include "driver/rmt_rx.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -26,7 +25,7 @@ static void ies0_print_rmt_rx_done_event_data(const rmt_rx_done_event_data_t dat
   }
 }
 
-int ies0_run(ies_resources_t* pResources) {
+int ies0_run(ies0_resources_t* pResources) {
   // rmt_channel_handle_t tx_chan = NULL;
   // rmt_tx_channel_config_t tx_chan_config = {
   //   .clk_src = RMT_CLK_SRC_DEFAULT,   // select source clock
@@ -112,9 +111,11 @@ int ies0_run(ies_resources_t* pResources) {
   return 0;
 }
 
-void ies0_dispose(ies_resources_t* pResources) {
-  if (pResources->rx_chan != NULL) {
-    ESP_ERROR_CHECK(rmt_disable(pResources->rx_chan));
-    ESP_ERROR_CHECK(rmt_del_channel(pResources->rx_chan));
+void ies0_dispose(ies0_resources_t* pResources) {
+  if (pResources) {
+    if (pResources->rx_chan != NULL) {
+      ESP_ERROR_CHECK(rmt_disable(pResources->rx_chan));
+      ESP_ERROR_CHECK(rmt_del_channel(pResources->rx_chan));
+    }
   }
 }
