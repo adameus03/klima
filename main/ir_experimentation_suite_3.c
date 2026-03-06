@@ -118,6 +118,9 @@ int ies3_run(ies3_resources_t* pResources) {
   sony_repeat(frame_symbols, tx_symbols, n);
   ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, tx_symbols, sizeof(tx_symbols), &transmit_config));
 
+  ESP_LOGI(TAG, "Waiting 5s for the TV to turn off");
+  vTaskDelay(5000 / portTICK_PERIOD_MS);
+
   ESP_LOGI(TAG, "Done transmitting, TV should be off now");
   
   return 0;
