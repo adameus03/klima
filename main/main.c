@@ -2,6 +2,7 @@
 #include "ir_experimentation_suite_0.h"
 #include "ir_experimentation_suite_1.h"
 #include "ir_experimentation_suite_2.h"
+#include "ir_experimentation_suite_3.h"
 
 static const char *TAG = "main";
 
@@ -19,10 +20,15 @@ void app_main(void)
   // int rv = ies1_run(&resources_ies1);
   // ies1_dispose(&resources_ies1);
 
-  ESP_LOGI(TAG, "Starting IR experimentation suite 2");
-  ies2_resources_t resources_ies2 = {0};
-  int rv = ies2_run(&resources_ies2);
-  ies2_dispose(&resources_ies2);
+  // ESP_LOGI(TAG, "Starting IR experimentation suite 2");
+  // ies2_resources_t resources_ies2 = {0};
+  // int rv = ies2_run(&resources_ies2);
+  // ies2_dispose(&resources_ies2);
+
+  ESP_LOGI(TAG, "Starting IR experimentation suite 3");
+  ies3_resources_t resources_ies3 = {0};
+  int rv = ies3_run(&resources_ies3);
+  ies3_dispose(&resources_ies3);
 
   return;
 }
