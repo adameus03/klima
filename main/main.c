@@ -10,10 +10,10 @@ void app_main(void)
 {
   ESP_LOGI(TAG, "Started main");
   
-  // ESP_LOGI(TAG, "Starting IR experimentation suite 0");
-  // ies0_resources_t resources_ies0 = {0};
-  // int rv = ies0_run(&resources_ies0);
-  // ies0_dispose(&resources_ies0);
+  ESP_LOGI(TAG, "Starting IR experimentation suite 0");
+  ies0_resources_t resources_ies0 = {0};
+  int rv = ies0_run(&resources_ies0);
+  ies0_dispose(&resources_ies0);
 
   // ESP_LOGI(TAG, "Starting IR experimentation suite 1");
   // ies1_resources_t resources_ies1 = {0};
@@ -25,10 +25,10 @@ void app_main(void)
   // int rv = ies2_run(&resources_ies2);
   // ies2_dispose(&resources_ies2);
 
-  ESP_LOGI(TAG, "Starting IR experimentation suite 3");
-  ies3_resources_t resources_ies3 = {0};
-  int rv = ies3_run(&resources_ies3);
-  ies3_dispose(&resources_ies3);
+  // ESP_LOGI(TAG, "Starting IR experimentation suite 3");
+  // ies3_resources_t resources_ies3 = {0};
+  // int rv = ies3_run(&resources_ies3);
+  // ies3_dispose(&resources_ies3);
 
   return;
 }
