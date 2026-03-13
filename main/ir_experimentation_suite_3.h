@@ -1,3 +1,7 @@
+/**
+ * Working example of performing a Sony TV control sequence over an IR transmission channel
+ */
+
 #ifndef IR_EXPERIMENTATION_SUITE_3_H
 #define IR_EXPERIMENTATION_SUITE_3_H
 

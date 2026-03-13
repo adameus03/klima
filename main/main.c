@@ -3,17 +3,20 @@
 #include "ir_experimentation_suite_1.h"
 #include "ir_experimentation_suite_2.h"
 #include "ir_experimentation_suite_3.h"
+#include "ir_experimentation_suite_4.h"
+#include "soc/rtc_cntl_reg.h"
 
 static const char *TAG = "main";
 
 void app_main(void)
 {
+  //WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
   ESP_LOGI(TAG, "Started main");
   
-  ESP_LOGI(TAG, "Starting IR experimentation suite 0");
-  ies0_resources_t resources_ies0 = {0};
-  int rv = ies0_run(&resources_ies0);
-  ies0_dispose(&resources_ies0);
+  // ESP_LOGI(TAG, "Starting IR experimentation suite 0");
+  // ies0_resources_t resources_ies0 = {0};
+  // int rv = ies0_run(&resources_ies0);
+  // ies0_dispose(&resources_ies0);
 
   // ESP_LOGI(TAG, "Starting IR experimentation suite 1");
   // ies1_resources_t resources_ies1 = {0};
@@ -29,6 +32,11 @@ void app_main(void)
   // ies3_resources_t resources_ies3 = {0};
   // int rv = ies3_run(&resources_ies3);
   // ies3_dispose(&resources_ies3);
+
+  ESP_LOGI(TAG, "Starting IR experimentation suite 4");
+  ies4_resources_t resources_ies4 = {0};
+  int rv = ies4_run(&resources_ies4);
+  ies4_dispose(&resources_ies4);
 
   return;
 }

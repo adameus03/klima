@@ -52,7 +52,8 @@ int ies0_run(ies0_resources_t* pResources) {
     .resolution_hz = 1 * 1000 * 1000, // 1 MHz tick resolution, i.e., 1 tick = 1 µs
     //.mem_block_symbols = 64,          // memory block size, 64 * 4 = 256 Bytes
     .mem_block_symbols = 512,
-    .gpio_num = 27,                    // GPIO number
+    //.gpio_num = 27,                    // GPIO number
+    .gpio_num = 12,                    // GPIO number
     .flags.invert_in = false,         // do not invert input signal
     .flags.with_dma = false,          // do not need DMA backend
   };

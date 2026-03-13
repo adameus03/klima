@@ -1,3 +1,7 @@
+/*
+  Experiment where we receive the signal that we send ourselves
+*/
+
 #ifndef IR_EXPERIMENTATION_SUITE_2_H
 #define IR_EXPERIMENTATION_SUITE_2_H
 
