@@ -53,7 +53,8 @@ int ies0_run(ies0_resources_t* pResources) {
     //.mem_block_symbols = 64,          // memory block size, 64 * 4 = 256 Bytes
     .mem_block_symbols = 512,
     //.gpio_num = 27,                    // GPIO number
-    .gpio_num = 12,                    // GPIO number
+    //.gpio_num = 12,     
+    .gpio_num = 16,                    // GPIO number
     .flags.invert_in = false,         // do not invert input signal
     .flags.with_dma = false,          // do not need DMA backend
   };

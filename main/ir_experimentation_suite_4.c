@@ -47,6 +47,10 @@ int ies4_run(ies4_resources_t* pResources) {
   /*
     Transmit
   */
+
+  // Wait 10s before turning on the AC
+  ESP_LOGI(TAG, "Waiting 10s before turning on the AC");
+  vTaskDelay(10000 / portTICK_PERIOD_MS);
   
   // turn on the AC with extreme heating settings
   ESP_LOGI(TAG, "Turning on the AC with extreme heating settings");
@@ -60,7 +64,7 @@ int ies4_run(ies4_resources_t* pResources) {
     .fanSpeed = mszgc22vaFAN_SPEED_VERY_HIGH,
     .vaneAngle = mszgc22vaVANE_ANGLE_SWING,
     .fvAutoModeSet = mszgc22vaFALSE,
-    .timeNow = 0,
+    .timeNow =  0b01011011,  //11011010,
     .schedTimeStop = 0,
     .schedTimeStart = 0,
     .timerSchedSet = mszgc22vaDISABLE,
@@ -83,8 +87,72 @@ int ies4_run(ies4_resources_t* pResources) {
   ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, ac_control_signal.symbols, sizeof(ac_control_signal.symbols), &transmit_config));
 
   // wait 15s for the AC to turn on
-  ESP_LOGI(TAG, "Waiting 1min");
-  vTaskDelay(60000 / portTICK_PERIOD_MS);
+  ESP_LOGI(TAG, "Waiting 15s");
+  vTaskDelay(15000 / portTICK_PERIOD_MS);
+
+  // Set vane angle to P1
+  ESP_LOGI(TAG, "Setting vane angle to P1");
+  mszgc22va_frame_params_t vane_p1_prms = turn_on_prms;
+  vane_p1_prms.vaneAngle = mszgc22vaVANE_ANGLE_P1;
+  ac_frame = mszgc22va_frame_create(vane_p1_prms);
+  ac_control_signal = mszgc22va_encode_frame(ac_frame);
+  ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, ac_control_signal.symbols, sizeof(ac_control_signal.symbols), &transmit_config));
+
+  ESP_LOGI(TAG, "Waiting 20s");
+  vTaskDelay(20000 / portTICK_PERIOD_MS);
+
+  // Set vane angle to P2
+  ESP_LOGI(TAG, "Setting vane angle to P2");
+  mszgc22va_frame_params_t vane_p2_prms = turn_on_prms;
+  vane_p2_prms.vaneAngle = mszgc22vaVANE_ANGLE_P2;
+  ac_frame = mszgc22va_frame_create(vane_p2_prms);
+  ac_control_signal = mszgc22va_encode_frame(ac_frame);
+  ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, ac_control_signal.symbols, sizeof(ac_control_signal.symbols), &transmit_config));
+
+  ESP_LOGI(TAG, "Waiting 20s");
+  vTaskDelay(20000 / portTICK_PERIOD_MS);
+
+  // Set vane angle to P3
+  ESP_LOGI(TAG, "Setting vane angle to P3");
+  mszgc22va_frame_params_t vane_p3_prms = turn_on_prms;
+  vane_p3_prms.vaneAngle = mszgc22vaVANE_ANGLE_P3;
+  ac_frame = mszgc22va_frame_create(vane_p3_prms);
+  ac_control_signal = mszgc22va_encode_frame(ac_frame);
+  ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, ac_control_signal.symbols, sizeof(ac_control_signal.symbols), &transmit_config));
+
+  ESP_LOGI(TAG, "Waiting 20s");
+  vTaskDelay(20000 / portTICK_PERIOD_MS);
+
+  // Set vane angle to P4
+  ESP_LOGI(TAG, "Setting vane angle to P4");
+  mszgc22va_frame_params_t vane_p4_prms = turn_on_prms;
+  vane_p4_prms.vaneAngle = mszgc22vaVANE_ANGLE_P4;
+  ac_frame = mszgc22va_frame_create(vane_p4_prms);
+  ac_control_signal = mszgc22va_encode_frame(ac_frame);
+  ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, ac_control_signal.symbols, sizeof(ac_control_signal.symbols), &transmit_config));
+
+  ESP_LOGI(TAG, "Waiting 20s");
+  vTaskDelay(20000 / portTICK_PERIOD_MS);
+
+  // Set vane angle to swing
+  ESP_LOGI(TAG, "Setting vane angle to swing");
+  mszgc22va_frame_params_t vane_swing_prms = turn_on_prms;
+  vane_swing_prms.vaneAngle = mszgc22vaVANE_ANGLE_SWING;
+  ac_frame = mszgc22va_frame_create(vane_swing_prms);
+  ac_control_signal = mszgc22va_encode_frame(ac_frame);
+  ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, ac_control_signal.symbols, sizeof(ac_control_signal.symbols), &transmit_config));
+
+  ESP_LOGI(TAG, "Waiting 20s");
+  vTaskDelay(20000 / portTICK_PERIOD_MS);
+
+  // Set vane angle to P1
+  ESP_LOGI(TAG, "Setting vane angle to P1");
+  ac_frame = mszgc22va_frame_create(vane_p1_prms);
+  ac_control_signal = mszgc22va_encode_frame(ac_frame);
+  ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, ac_control_signal.symbols, sizeof(ac_control_signal.symbols), &transmit_config));
+
+  ESP_LOGI(TAG, "Waiting 20s");
+  vTaskDelay(20000 / portTICK_PERIOD_MS);
 
   // Turn off the AC
   ESP_LOGI(TAG, "Turning off the AC");
@@ -93,6 +161,10 @@ int ies4_run(ies4_resources_t* pResources) {
   ac_frame = mszgc22va_frame_create(turn_off_prms);
   ac_control_signal = mszgc22va_encode_frame(ac_frame);
   ESP_ERROR_CHECK(rmt_transmit(tx_chan, encoder, ac_control_signal.symbols, sizeof(ac_control_signal.symbols), &transmit_config));
+
+  // wait 15s for the AC to turn off
+  ESP_LOGI(TAG, "Waiting 15s");
+  vTaskDelay(15000 / portTICK_PERIOD_MS);
 
   ESP_LOGI(TAG, "Done transmitting, AC should be off now");
   
