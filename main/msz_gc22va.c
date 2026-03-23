@@ -64,7 +64,7 @@ mszgc22va_frame_t mszgc22va_frame_create(mszgc22va_frame_params_t params) {
   frame.timer_config_reg |= ((uint32_t)params.schedTimeStart) << 16;
   frame.timer_config_reg |= ((uint32_t)(((uint8_t)(params.timerSchedSet ? 1 : 0)) | ((uint8_t)(params.timerStopEnable ? 0x02 : 0)) | ((uint8_t)(params.timerStartEnable ? 0x04 : 0)))) << 24;
   frame.econo_cool_reg = params.econoCoolOperationEnable ? 0x20 : 0x0;
-  frame.rfu = 0;
+  frame.ext_control_reg = params.horizontalVanePositionEnable ? ((uint16_t)1) << 7 : 0;
   frame.cksum = 0;
   for (int i = 0; i < MSZGC22VA_FRAME_LEN - 1; i++) {
     frame.cksum += frame.data[i];

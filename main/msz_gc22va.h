@@ -25,8 +25,8 @@ typedef union mszgc22va_frame {
     uint32_t timer_config_reg;
     uint8_t econo_cool_reg;
 
-    /* Reserved for future use */
-    uint16_t rfu;
+    /* Extended control register */
+    uint16_t ext_control_reg;
     /* Checksum */
     uint8_t cksum;
   } __attribute__((__packed__));
@@ -85,6 +85,7 @@ typedef struct mszgc22va_frame_params {
   int timerStopEnable;
   int timerStartEnable;
   int econoCoolOperationEnable;
+  int horizontalVanePositionEnable;
 } mszgc22va_frame_params_t;
 
 mszgc22va_frame_t mszgc22va_frame_create(mszgc22va_frame_params_t params);

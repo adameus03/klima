@@ -70,7 +70,8 @@ int ies4_run(ies4_resources_t* pResources) {
     .timerSchedSet = mszgc22vaDISABLE,
     .timerStopEnable = mszgc22vaDISABLE,
     .timerStartEnable = mszgc22vaDISABLE,
-    .econoCoolOperationEnable = mszgc22vaDISABLE
+    .econoCoolOperationEnable = mszgc22vaDISABLE,
+    .horizontalVanePositionEnable = mszgc22vaDISABLE
   };
   mszgc22va_frame_t ac_frame = mszgc22va_frame_create(turn_on_prms);
   mszgc22va_frame_rmt_symbols_t ac_control_signal = mszgc22va_encode_frame(ac_frame);
