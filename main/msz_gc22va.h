@@ -12,6 +12,8 @@
 #define mszgc22vaTRUE 1
 #define mszgc22vaFALSE 0
 
+#define MSZGC22VA_DEVICE_ID 0x0126cb23
+
 typedef union mszgc22va_frame {
   struct {
     /* Device identification */

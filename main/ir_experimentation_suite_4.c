@@ -52,19 +52,20 @@ int ies4_run(ies4_resources_t* pResources) {
   ESP_LOGI(TAG, "Waiting 10s before turning on the AC");
   vTaskDelay(10000 / portTICK_PERIOD_MS);
   
-  // turn on the AC with extreme heating settings
-  ESP_LOGI(TAG, "Turning on the AC with extreme heating settings");
+  // turn on the AC with 21C cooling settings
+  ESP_LOGI(TAG, "Turning on the AC with 21C cooling settings");
   mszgc22va_frame_params_t turn_on_prms = {
-    .deviceId = 0x0126cb23,
+    .deviceId = MSZGC22VA_DEVICE_ID,
     .powerStatus = mszgc22vaPOWER_ON,
-    .operatingMode = mszgc22vaMODE_HEATING,
-    .hvacTemperature = 0xf,
-    .coldAirPreventionEnable = mszgc22vaENABLE,
-    .dewPreventionEnable = mszgc22vaENABLE,
-    .fanSpeed = mszgc22vaFAN_SPEED_VERY_HIGH,
+    .operatingMode = mszgc22vaMODE_COOLING,
+    .hvacTemperature = 0x5, // 21C
+    .coldAirPreventionEnable = mszgc22vaDISABLE,
+    .dewPreventionEnable = mszgc22vaDISABLE,
+    .fanSpeed = mszgc22vaFAN_SPEED_HIGH,
     .vaneAngle = mszgc22vaVANE_ANGLE_SWING,
     .fvAutoModeSet = mszgc22vaFALSE,
-    .timeNow =  0b01011011,  //11011010,
+    //.timeNow =  0b01011011,  //11011010,
+    .timeNow = 0,
     .schedTimeStop = 0,
     .schedTimeStart = 0,
     .timerSchedSet = mszgc22vaDISABLE,
