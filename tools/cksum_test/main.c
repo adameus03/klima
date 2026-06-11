@@ -10,4 +10,5 @@ int main() {
     sum += data[i];
   }
   printf("%hhx\n", sum);
+  return 0;
 }

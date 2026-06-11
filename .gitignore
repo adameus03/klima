@@ -1,2 +1,5 @@
 build
 **/*.swp
+*.swp
+.vscode
+sdkconfig.old
