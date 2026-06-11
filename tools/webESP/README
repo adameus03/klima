@@ -1,0 +1,15 @@
+docker build -t 'webesp' .
+docker run -p 127.0.0.1:7681:7681 --hostname remote-mipsa-systems/esp32 --name webesp1 webesp
+
+#docker save webesp -o webesp.tar
+docker save webesp | pigz | ssh -v -o IdentitiesOnly=yes -o PubkeyAuthentication=no raspberrypi.local 'pigz -d | docker load'
+
+docker buildx create --use
+docker buildx build --platform linux/arm64 -t webesp:arm64 --load .
+docker save webesp:arm64 | pigz | ssh -v -o IdentitiesOnly=yes -o PubkeyAuthentication=no raspberrypi.local 'pigz -d | docker load'
+
+docker run -p 127.0.0.1:7681:7681 --device=/dev/ttyUSB0 --hostname remote-mipsa-systems/esp32 --restart unless-stopped --pids-limit 2048 --name webesp1 webesp:arm64
+
+docker run -p 127.0.0.1:7681:7681 -p 127.0.0.1:2222:2222 --device=/dev/ttyUSB0 --hostname remote-mipsa-systems/esp32 --restart unless-stopped --pids-limit 2048 --name webesp2 webesp:arm64
+
+docker run -p 127.0.0.1:7682:7682 --hostname remote-mipsa-systems.esp32 --restart unless-stopped --pids-limit 2048 --name webesp1 webesp

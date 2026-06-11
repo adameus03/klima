@@ -1,0 +1,20 @@
+FROM espressif/idf:v5.5.3
+WORKDIR /
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y build-essential cmake zlib1g-dev libwebsockets-dev libjson-c-dev
+RUN useradd -ms /bin/bash user
+USER user
+WORKDIR /home/user
+RUN git clone https://github.com/tsl0922/ttyd .ttyd
+WORKDIR /home/user/.ttyd
+RUN mkdir build
+WORKDIR /home/user/.ttyd/build
+RUN cmake -S .. -B .
+RUN cmake --build .
+WORKDIR /home/user
+RUN echo "PS1='"'\[\e[0;36m\][\[\e[m\]\[\e[0;35m\]\u\[\e[m\]\[\e[0;36m\]@\[\e[m\]\[\e[0;31m\]\h\[\e[m\]\[\e[0;36m\]:\w ]\$ \[\e[m\]'"'" >> ./.bashrc
+COPY welcome_text ./.welcome_text
+RUN echo "cat /home/user/.welcome_text" >> ./.bashrc
+EXPOSE 7681
+CMD ["/home/user/.ttyd/build/ttyd", "-p", "7681", "-c", "user:user", "--writable", "bash"]
